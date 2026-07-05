@@ -1,0 +1,46 @@
+{
+  "summary": "Frontend-only Playwright run on Expo web preview (390x844). Verified the three new features end-to-end plus all previously working flows. (1) DARK MODE: Profile > setting-darkmode toggles the entire palette. Sampled background colors confirm the swap: light surface rgb(247,249,252)/rgb(255,255,255) → dark surface rgb(11,18,32)/rgb(17,24,39); also confirmed visually on Profile, Home and Calendar screens. Toggle off restores light. Persistence after full page reload PASSES (AsyncStorage → localStorage on web). (2) CALENDAR: route /calendar opens from setting-calendar; all testIDs present (calendar-back, calendar-today, calendar-prev, calendar-next, calendar-month-label, day-N). Tapping day-30 (today) selects it with filled green background and the detail card shows '1 transactions' with the Monthly Salary row. calendar-prev twice changed June 2026 → April 2026, calendar-today returned to June 2026, calendar-back returns to Profile. (3) EXPORT: setting-export triggered an actual browser download ('budget-buddy-1782799248928.csv') and profile-toast read 'CSV downloaded'. setting-export-pdf opened a new tab (window count 1→2) and profile-toast read 'PDF print dialog opened'. Regression: onboarding skip → guest login works, FAB (testID 'fab-add') opens AddTransactionSheet, saving a ₹123 Food expense increased Home expense ₹3,340 → ₹3,463 (+₹123 exactly) and txn count 9 → 10. Tabs navigation (home/analytics/goals/profile) intact. VoiceAssistant long-press opens voice-fallback-input and submitting produces voice-reply-bubble. Two non-blocking console issues already reported in iteration_1 are still present (shadow* style deprecation, transform-origin DOM warning). No red screens, no crashes, no new regressions.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": [
+      {
+        "screen": "Home",
+        "issues": [
+          "Voice reply-bubble still overlays the Categories grid when a query is answered (positioned just above the FAB). Carry-over from iteration_1 — consider rendering it above the FAB inside the safe area without covering content rows."
+        ]
+      }
+    ],
+    "react_native_issues": [
+      {
+        "component": "Theme shadow tokens",
+        "issue": "Console still warns: '\"shadow*\" style props are deprecated. Use \"boxShadow\".' Sources include src/theme/index.ts (shadow.card / shadow.soft) consumed by Calendar gridCard, Goals/Profile cards, etc. Reference: /app/frontend/src/theme/index.ts:123-138"
+      },
+      {
+        "component": "Chart/BudgetRing transform style",
+        "issue": "Console still errors: 'Invalid DOM property transform-origin. Did you mean transformOrigin?' Likely from BudgetRing or chart components using kebab-case CSS via inline style on web. Reference: /app/frontend/src/components/BudgetRing.tsx"
+      }
+    ]
+  },
+  "test_report_links": ["/app/test_reports/iteration_2.json", "/app/test_reports/iteration_1.json"],
+  "action_items": [
+    "(Carry-over) Replace shadow.* tokens with boxShadow (or web-guarded styles) to silence RN deprecation warning.",
+    "(Carry-over) Fix transform-origin → transformOrigin in BudgetRing / chart inline styles to remove the React DOM warning.",
+    "(Optional/Carry-over) Reposition voice-reply-bubble so it doesn't overlap the Categories grid on Home.",
+    "(Carry-over) Login password placeholder still uses literal '\\u2022' string — fix as called out in iteration_1.json."
+  ],
+  "critical_code_review_comments": [
+    "ThemeProvider implementation is clean: AsyncStorage-backed mode with light/dark/system support, useTheme() and useColors() hooks, and Appearance change listener. RootLayout already wraps Stack in ThemedShell so StatusBar style flips correctly with the palette.",
+    "calendar.tsx is self-contained, uses useColors() via makeStyles factory, correctly memoizes the month grid and totals, and exposes every required testID (calendar-back/today/prev/next/calendar-month-label/day-N).",
+    "export.ts has proper web/native branches: Blob download for CSV on web (uses createObjectURL + revokeObjectURL); window.open + print() for PDF, returning 'Pop-up blocked' fallback message. Native path uses expo-file-system/legacy + expo-sharing + expo-print which matches the requested libraries.",
+    "calendar.tsx imports Modal from react-native but never uses it — minor dead import; not blocking."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "n/a (frontend only)", "frontend": "100% of requested flows passing"},
+  "seed_data_creation": "None. Store seeds demo data on first launch (₹39,500 income, ₹3,340 expense, 9 transactions, 4 goals). Calendar correctly reflects seeded transactions on day 30 (June 2026).",
+  "retest_needed": false,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "Use viewport 390x844. Clear localStorage before testing to reset onboarding/theme/store. Theme key = 'budget_buddy_theme_mode_v1' in localStorage. FAB testID is 'fab-add' (NOT 'fab-add-transaction'). AddTransactionSheet uses testIDs input-amount/input-title/cat-<id>/save-transaction-button. Calendar testIDs: calendar-back, calendar-today, calendar-prev, calendar-next, calendar-month-label, day-<N>, day-summary, cal-txn-<id>. Profile toast testID is 'profile-toast' and clears after 2.5s — read it within ~500ms of triggering the action. Voice fallback opens via long-press (~800ms) on voice-assistant-fab; STT is not available in headless Chromium so always use the fallback input.",
+  "rca_of_issue": "No new issues introduced. Two pre-existing console warnings (shadow* deprecation, transform-origin DOM warning) carried over from iteration_1 and remain unfixed — they do not affect functionality but pollute logs and should be cleaned up."
+}

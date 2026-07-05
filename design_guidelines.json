@@ -1,0 +1,197 @@
+{
+  "app_name": "Budget Buddy",
+  "personality": "1 iOS-Native Clean structure with 6 Glass / Luxe surfaces",
+  "personality_one_liner": "A premium, Apple-inspired personal finance tracker that uses minimal geometry, soft glassmorphism, and precise typography to make money management feel effortless and modern.",
+  "color": {
+    "surface": "#F7F9FC",
+    "onSurface": "#111827",
+    "surfaceSecondary": "#FFFFFF",
+    "onSurfaceSecondary": "#374151",
+    "surfaceTertiary": "#F3F4F6",
+    "onSurfaceTertiary": "#4B5563",
+    "surfaceInverse": "#111827",
+    "onSurfaceInverse": "#F9FAFB",
+    "brand": "#4CAF50",
+    "brandPrimary": "#4CAF50",
+    "onBrandPrimary": "#FFFFFF",
+    "brandSecondary": "#00BCD4",
+    "onBrandSecondary": "#FFFFFF",
+    "brandTertiary": "#E8F5E9",
+    "onBrandTertiary": "#1B5E20",
+    "success": "#4CAF50",
+    "onSuccess": "#FFFFFF",
+    "warning": "#FFC107",
+    "onWarning": "#422006",
+    "error": "#EF4444",
+    "onError": "#FFFFFF",
+    "info": "#00BCD4",
+    "onInfo": "#FFFFFF",
+    "border": "#E5E7EB",
+    "borderStrong": "#D1D5DB",
+    "divider": "#E5E7EB"
+  },
+  "typography": {
+    "displayFontFamily": "Plus Jakarta Sans",
+    "textFontFamily": "Plus Jakarta Sans",
+    "scale": {
+      "sm": 12,
+      "base": 14,
+      "lg": 16,
+      "xl": 20,
+      "2xl": 24
+    }
+  },
+  "spacing": {
+    "rule": "Generous Apple-like padding. Minimum 16px horizontal margins. Cards must breathe.",
+    "xs": 4,
+    "sm": 8,
+    "md": 12,
+    "lg": 16,
+    "xl": 24,
+    "2xl": 32,
+    "3xl": 48
+  },
+  "radius_tokens": {
+    "sm": 8,
+    "md": 12,
+    "lg": 20,
+    "pill": 999
+  },
+  "shadow_tier": "1",
+  "navigation": "bottom_tabs",
+  "icon_set": "Phosphor",
+  "glassmorphism": {
+    "enabled": "true",
+    "do's": [
+      "Use on the hero total balance card on Home dashboard.",
+      "Use on the bottom tab bar.",
+      "Use on the 'Add Transaction' bottom sheet.",
+      "Apply a white tint (Light mode) or dark tint (Dark mode) under the blur to guarantee readability."
+    ],
+    "dont's": [
+      "Do not use on regular list items or standard category grid cards.",
+      "Do not stack multiple glass cards inside each other."
+    ]
+  },
+  "platform_libraries": {
+    "glass": {
+      "ios": "expo-glass-effect",
+      "android": "expo-blur",
+      "low_end_android_fallback": "solid surfaceSecondary"
+    },
+    "image": "expo-image",
+    "blur": "expo-blur",
+    "bottom_sheet": "@gorhom/bottom-sheet",
+    "animation": "react-native-reanimated",
+    "gesture": "react-native-gesture-handler"
+  },
+  "screens": [
+    {
+      "name": "Onboarding",
+      "purpose": "Introduce value proposition with large minimal illustrations and smooth sliding.",
+      "states": {
+        "loading": "Center spinner",
+        "empty": "N/A",
+        "error": "N/A"
+      },
+      "layout": "Full screen layout. Top 60% contains the image with a subtle gradient scrim. Bottom 40% contains title, subtitle, dot indicators, and sticky primary button at the bottom."
+    },
+    {
+      "name": "Login",
+      "purpose": "Secure entry via email or guest mode.",
+      "states": {
+        "loading": "Spinner on button",
+        "empty": "N/A",
+        "error": "Inline text below input"
+      },
+      "layout": "Centered form inside KeyboardAvoidingView. Minimal logo at top. Large clean inputs. Primary CTA for Login, secondary text link for Guest mode."
+    },
+    {
+      "name": "Home",
+      "purpose": "Dashboard overview showing balance, quick actions, and recent activity.",
+      "states": {
+        "loading": "Skeleton cards",
+        "empty": "Empty state illustration for transactions",
+        "error": "Card with retry button"
+      },
+      "layout": "ScrollView. Top header with user greeting. Hero Glass Card containing Total Balance, Income, Expense, and animated ring. Below: horizontally scrolling Quick Actions row. Below: 2-column Category grid. Bottom: Recent transactions list."
+    },
+    {
+      "name": "AddTransaction",
+      "purpose": "Bottom sheet to rapidly add income/expense without leaving context.",
+      "states": {
+        "loading": "Spinner on save button",
+        "empty": "N/A",
+        "error": "Inline error for invalid amount"
+      },
+      "layout": "Bottom Sheet. Visible drag handle. Top large numeric input for Amount. Horizontally scrolling chips for Category and Payment Method. Emotion selector row. Sticky 'Save' button."
+    },
+    {
+      "name": "Analytics",
+      "purpose": "Visual breakdown of spending via charts.",
+      "states": {
+        "loading": "Skeleton chart",
+        "empty": "Illustration for no data",
+        "error": "Retry button"
+      },
+      "layout": "Segmented control at top (Weekly/Monthly). Large Chart area. Below chart: list of top spending categories."
+    },
+    {
+      "name": "SavingsGoals",
+      "purpose": "Track progress towards user-defined financial targets.",
+      "states": {
+        "loading": "Skeleton list",
+        "empty": "Piggy bank empty state illustration + Add Goal CTA",
+        "error": "Retry button"
+      },
+      "layout": "Vertical list of cards. Each card has a title, target amount, current amount, and a small circular progress ring using brandSecondary (Cyan)."
+    },
+    {
+      "name": "Profile",
+      "purpose": "User settings, theme toggle, and export data.",
+      "states": {
+        "loading": "Spinner",
+        "empty": "N/A",
+        "error": "N/A"
+      },
+      "layout": "Top section: Avatar + Name. Below: grouped settings rows (Appearance, Currency, Export) with leading icon, title, and trailing control (switch/chevron)."
+    }
+  ],
+  "images": {
+    "onboarding_1": {
+      "url": "https://images.unsplash.com/photo-1543286386-2e659306cd6c?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAzNDR8MHwxfHNlYXJjaHwxfHxtaW5pbWFsJTIwZmluYW5jaWFsJTIwcGlnZ3klMjBiYW5rfGVufDB8fHx8MTc4Mjc5NTYxOXww&ixlib=rb-4.1.0&q=85",
+      "alt": "Minimal financial planning"
+    },
+    "onboarding_2": {
+      "url": "https://images.unsplash.com/photo-1622782914767-404fb9ab3f57?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjY2NzV8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjBtaW5pbWFsJTIwZXhwZW5zZSUyMHRyYWNraW5nJTIwcGhvbmV8ZW58MHx8fHwxNzgyNzk1NjE5fDA&ixlib=rb-4.1.0&q=85",
+      "alt": "Modern minimal expense tracking phone"
+    },
+    "onboarding_3": {
+      "url": "https://images.unsplash.com/photo-1607863680198-23d4b2565df0?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA4Mzl8MHwxfHNlYXJjaHwxfHxtaW5pbWFsJTIwcGlnZ3klMjBiYW5rJTIwc2F2aW5nJTIwbW9uZXl8ZW58MHx8fHwxNzgyNzk1NjIwfDA&ixlib=rb-4.1.0&q=85",
+      "alt": "Minimal piggy bank saving money"
+    },
+    "empty_transactions": {
+      "url": "https://images.unsplash.com/photo-1627123424574-724758594e93?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAzNTl8MHwxfHNlYXJjaHwxfHxlbXB0eSUyMHdhbGxldCUyMG1pbmltYWwlMjBpbGx1c3RyYXRpb258ZW58MHx8fHwxNzgyNzk1NjI0fDA&ixlib=rb-4.1.0&q=85",
+      "alt": "Empty wallet minimal illustration"
+    },
+    "profile_avatar": {
+      "url": "https://images.unsplash.com/photo-1607990283143-e81e7a2c9349?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1ODF8MHwxfHNlYXJjaHwxfHxwcm9mZXNzaW9uYWwlMjBwb3J0cmFpdCUyMGhhcHB5JTIwcGVyc29uJTIwbWluaW1hbCUyMGJhY2tncm91bmR8ZW58MHx8fHwxNzgyNzk1NjI0fDA&ixlib=rb-4.1.0&q=85",
+      "alt": "Professional portrait"
+    }
+  },
+  "instructions_to_main_agent": [
+    "Follow '1 iOS-Native Clean' personality but inject '6 Glass / Luxe' elements specifically on the Home Hero Card, Tab Bar, and Add Transaction bottom sheet.",
+    "Do NOT use pure Material design heavy shadows. Use soft shadows (tier 1) and generous padding (radius lg).",
+    "Use Plus Jakarta Sans globally. Do not mix font families.",
+    "Ensure the hero circular progress ring and the savings goals rings use smooth react-native-reanimated animations.",
+    "For the Add Transaction bottom sheet, ensure the layout is optimized for thumb-reachability: large Amount input at top, horizontally scrolling chips for categories and payment methods, and a sticky bottom CTA.",
+    "Use Phosphor icons consistently. Ensure empty states use the provided Unsplash images."
+  ],
+  "haptics": {
+    "button_press": "light",
+    "tab_switch": "light",
+    "bottom_sheet_open": "medium",
+    "transaction_save": "success",
+    "swipe_delete": "rigid"
+  }
+}
