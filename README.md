@@ -17,7 +17,7 @@
 ## 🌐 Live Demo
 
 🖥️ **Web App:**
-[Budget Buddy Live Demo](https://techtitans-budget-buddy.netlify.app/?utm_source=chatgpt.com)
+[Budget Buddy Live Demo](techtitans-budget-buddy.netlify.app)
 
 📱 **Mobile:** Expo / Android APK
 
