@@ -16,7 +16,7 @@
 
 ## 🌐 Live Demo
 
-🖥️ **Web App:** techtitans-budget-buddy.netlify.app
+🖥️ **Web App:** [techtitans-budget-buddy.netlify.app](https://techtitans-budget-buddy.netlify.app/?utm_source=)
 
 📱 **Mobile:** Expo / Android APK
 
